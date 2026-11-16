@@ -1,4 +1,6 @@
 import 'dotenv/config'; 
+import routes from './src/controllers/routes.js';
+import { setupDatabase, testConnection } from './src/models/setup.js';
 import express from 'express';
 
 const app = express();
@@ -11,10 +13,10 @@ app.set('views', './src/views');
 
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.render('home', { title: 'My Express App' });
-});
+app.use('/', routes);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await setupDatabase();
+    await testConnection();
     console.log(`Server running at http://localhost:${PORT}`);
 });

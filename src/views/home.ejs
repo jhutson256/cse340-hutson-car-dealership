@@ -1,6 +1,41 @@
 <%- include('partials/header') %>
+
 <main>
-    <h1><%= title %> is working successfully!</h1>
-    <p>Welcome to my Express app!</p>
+    <h1><%= title %></h1>
+    <p>Welcome to our vehicle inventory!</p>
+    <section class="car-grid">
+        <% cars.forEach(car => { %>
+            <div class="car-card-wrapper">
+                <article class="car-card">
+                    <div class="car-card__image-container">
+                        <img src="<%= car.imageUrl %>" alt="<%= car.year %> <%= car.make %> <%= car.model %>">
+                        <span class="car-card__badge">
+                            <%= car.condition %>
+                        </span>
+                    </div>
+                    <div class="car-card__body">
+                        <div class="car-card__header">
+                            <h2 class="car-card__title">
+                                <%= car.year %>
+                                <%= car.make %>
+                                <%= car.model %>
+                                <%= car.trim %>
+                            </h2>
+                            <span class="car-card__price">
+                                $<%= car.price.toLocaleString() %>
+                            </span>
+                        </div>
+                        <div class="car-card__details">
+                            <span><%= car.mileage.toLocaleString() %> mi</span> •
+                            <span><%= car.transmission %></span> •
+                            <span><%= car.fuelType %></span>
+                        </div>
+                        <a href="/cars/<%= car.slug %>" class="car-card__btn">View Details</a>
+                    </div>
+                </article>
+            </div>
+        <% }) %>
+    </section>
 </main>
+
 <%- include('partials/footer') %>
